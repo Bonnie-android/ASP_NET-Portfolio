@@ -1,0 +1,18 @@
+  create table tblStudents
+  (
+     StudentID int primary key identity,
+	   StudentName varchar(50) not null,
+	   StudentGrade varchar(50) not null,
+	   StudentTotalMarks int not null
+  );
+
+  insert into tblStudents values('Susan Smith','Junior',111);
+  insert into tblStudents values('Jonathan Jones','Senior',222);
+  insert into tblStudents values('Mary-Anne North','Junior',333);
+  insert into tblStudents values('Christopher South','Freshman',444);
+  insert into tblStudents values('Harvey Richmond','Junior',555);
+  insert into tblStudents values('Johnny Hastings','Junior',777);
+  insert into tblStudents values('Jeraldine Chen','Junior',888);
+  insert into tblStudents values('Pavi Patel','Junior',999);
+  insert into tblStudents values('Kevin Ng','Senior',1111);
+  insert into tblStudents values('Natalie Kovski','Freshman',2222);
