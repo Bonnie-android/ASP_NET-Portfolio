@@ -1,0 +1,33 @@
+Row States and Row Versions
+
+Every DataRow contained in a DataTable of a DataSet has a RowState property.
+The following provides a detailed description of RowStates and RowVersions.
+
+Row States:
+RejectChanges and AcceptChanges Methods for datarows:
+According to Microsoft, there are five RowState values, 
+Unchanged - No changes have been made since the last call to AcceptChanges or since the row was created by DataAdapter.Fill().
+Added - The row has been added to the table, but AcceptChanges has not been called.
+Modified - An element of the row has been changed
+Deleted - The row had been deleted from the table and AcceptChanges has not been called.
+Detached - the row is not part of a DataRowCollection. The RowState of a newly created row is set to Detached.
+   After the DataRow is added to the DataRowCollection by calling the Add method, the value of the RowState property is set to Added.
+   Detached is also set for a row that has been removed from a DataRowCollection using the Remove method or by the Delete method followed by the AcceptChange method.
+When AcceptChanges method is called on a DataSet,DataTable or DataRow, all rows with a row state of Deleted are removed.
+The remaining rows are given a row state of Unchanged, and the values in the Original row version are overwritten with the Current row version values.
+When RejectChanges is called, all rows with a row state of Added are removed. The remaining rows are given a row state Unchanged, and the values in the Current row version are overwritten with the Original row version values.
+ 
+Row Versions:
+Current - The current values for the row. This row version does not exist for rows with a RowState of Deleted. This is the default version.
+Default-The default row version for a particular row. The default row version for an Added, Modified, or Unchanged row is Current. The default row version for a Deleted row is Original. The default row version for a Detached row is Proposed.
+Original - The original values for the row. This row version does not exist for rows with a RowState of Added.
+Proposed - The proposed values for the row. This row version exists during an edit operation on a row, or for a row that is not part of a DataRowCollection.
+
+The HasVersion() method can be used to check if a row has a specific DataRowVersion. This returns a boolean.
+Example: DataRow.HadVersion(DataRowVersion.Original);
+
+When the AcceptChanges() method is invoked the RowState property of each DataRow changes. The Added/Modified rows are now Unchanged and Deleted rows are removed.
+When the RejectChanges() method is invoked, the RowState property of each DataRow changes. The system is rolled back to the original state and the transaction is reversed.
+Added rows are removed. Modified and Deleted rows are rolled back to the original state and are now Unchanged.
+
+The AcceptChanges() and RejectChanges() methods can be invoked at the DataSet level, the DataTable level and in addition can be invoked on a specific DataRow.
